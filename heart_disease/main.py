@@ -29,6 +29,7 @@ def binary_acc(y_pred, y_test):
 
     return acc
 
+
 # https://www.kaggle.com/fedesoriano/heart-failure-prediction
 if __name__ == '__main__':
     dataset = []
@@ -63,7 +64,7 @@ if __name__ == '__main__':
         train_set = Dataset(train_x, train_y)
         test_set = Dataset(test_x, test_y)
 
-        net = NeuralNetwork(len(test_x[0]), 1) # TODO: fix input and output shapes
+        net = NeuralNetwork(len(test_x[0]), 1)
         train_loader = DataLoader(train_set, batch_size=int(config['BATCH_SIZE']))
         test_loader = DataLoader(test_set, batch_size=len(test_set))
         # train_features, train_labels = iter(train_loader)
@@ -104,7 +105,7 @@ if __name__ == '__main__':
                 test_acc.append(binary_acc(preds, test_labels))
                 print("Epoch: {}, Test accuracy: {}%".format(epoch, test_acc[-1]))
                 test_loss = loss_fn(preds, test_labels.float())
-                print("Epoch: {}, Batch: {}, Train loss: {}".format(epoch, batch, test_loss.item()))
+                print("Epoch: {}, Test loss: {}".format(epoch, test_loss.item()))
             print("Epoch {}".format(epoch, batch))
 
     print("EXIT")
