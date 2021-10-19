@@ -37,7 +37,7 @@ if __name__ == '__main__':
         print(key)
     t = config['TEST_PERCENTAGE_SPLIT']
 
-    with open( str(parent) + '/data/heart.csv', 'r', newline='') as csvfile:
+    with open(str(parent) + '/data/heart.csv', 'r', newline='') as csvfile:
         linereader = csv.reader(csvfile, delimiter=' ')
         for row in linereader:
             row = row[0].split(',')
