@@ -1,3 +1,4 @@
 /energy_consumption_lstm/data/household_power_consumption.txt
 /energy_consumption_lstm/data/processed.npy
 /.idea/
+/crypto/

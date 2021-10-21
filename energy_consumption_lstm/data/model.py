@@ -1,5 +1,5 @@
 import datetime as dt
-import math
+
 import numpy as np
 
 
@@ -24,7 +24,7 @@ class Record:
         self.residual_active_energy = 0
         self.error_active = 0
         self.power = 0
-
+        self.raw_power = 0
 
     def process_entry(self, arr):
         ret = [self.__date_time_timestamp(arr[0], arr[1])]
@@ -56,7 +56,6 @@ class Record:
     def __calc_phase_from_real(self):
         self.__convert_amps_to_watts(self.global_active_Ah_min, self.voltage)
 
-
     def process_record(self, rec, ranges):
         # self.time_date = self.__date_time_vector(rec[0], ranges[0])
         self.time_date = rec[0]
@@ -68,6 +67,7 @@ class Record:
         self.residual_active_energy = self.__residual_active_energy_vector(rec[8], ranges[8])
         self.error_active = self.__error_active_vector(rec[9], ranges[9])
         self.power = self.__power_vector(rec[10], ranges[10])
+        self.raw_power = rec[10]
 
     def __date_time_timestamp(self, date, time):
         date = date.split("/")
@@ -106,10 +106,6 @@ class Record:
         return abs(val)
 
     def __sub_meter_vector(self, vals, sub_meters_range):
-        # vals[0] = self.__convert_Wh_to_Ah(vals[0], vals[-1])
-        # vals[1] = self.__convert_Wh_to_Ah(vals[1], vals[-1])
-        # vals[2] = self.__convert_Wh_to_Ah(vals[2], vals[-1])
-
         if sub_meters_range[0][0] > vals[0] or vals[0] > sub_meters_range[0][2]:
             raise Exception("Value out of range")
         vals[0] = (vals[0] - sub_meters_range[0][0]) / (sub_meters_range[0][2] - sub_meters_range[0][0])
