@@ -2,4 +2,4 @@ pytorch
 numpy
 matplotlib
 pycoingecko
-tpdm
+tqdm

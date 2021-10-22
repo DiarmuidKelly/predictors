@@ -42,13 +42,25 @@ class ClassicRNN:
         self.layer_1 = self.Unit(input_shape, output_shape)
 
     def forward(self, x, y):
+        """
+        Taken from Goodfellow et. al's forward propagation equations 10.8-10-10 in Chapter RNN 10.2, ignoring the biases
+        U - input_weights - input to hidden
+        W - hidden_weights - hidden to hidden
+        V - output_weights - hidden to output
+        :param x:
+        :param y:
+        :return:
+        """
+        new_input = np.zeros(x.shape)
         for i in range(self.input_shape):
-            new_input = np.zeros(x.shape)
             new_input[i] = x[i]
+            # 10.8
             input_prod = np.dot(self.input_weights, new_input)
             previous_output_prod = np.dot(self.hidden_weights, self.output)
             prod = input_prod + previous_output_prod
-            out = sigmoid(prod)
+            # 10.9
+            out = tanh(prod)
+            # 10.10
             mulv = np.dot(self.output_weights, out)
             self.output = out
         loss = (y - mulv) ** 2 / 2
